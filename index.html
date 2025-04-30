@@ -3,19 +3,1066 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agradeçendo pela sua presença</title>
-    <link rel="stylesheet" href="istilo.css">
+    <title>Movimento Jovem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0b1631;
+            --primary-light: #5678c5;
+            --primary-dark: #142c5b;
+            --text-light: #f5f5f5;
+            --text-dark: #333;
+            --background-light: #ffffff;
+            --background-dark: #232223;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --default-avatar-bg: #e0e0e0;
+            --default-icon-color: #666;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            min-height: 100vh;
+            display: flex;
+            transition: margin-left 500ms ease;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        @media (prefers-color-scheme: dark) {}
+  body:not(.light) {
+    background: radial-gradient(circle at 50% 50%, #192233 20%, #000);
+
+  }
+
+        /* Sidebar Styles */
+        nav {
+            width: 5rem;
+            height: 100vh;
+            background-color: var(--primary-color);
+            padding: 1rem 0.75rem;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            transition: width 500ms ease;
+            z-index: 100;
+            box-shadow: 2px 0 10px rgba(245, 243, 243, 0.229);
+        }
+
+        body.active nav {
+            width: 15rem;
+        }
+
+        .sidebar-header,
+        .sidebar-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 1.25rem;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 3.25rem;
+            height: 3.25rem;
+            background-color: rgba(255, 255, 255, 0.3);
+            padding: 0.4rem;
+            border-radius: 0.5rem;
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            background-color: var(--default-avatar-bg);
+        }
+
+        .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sidebar-links {
+            flex-direction: column;
+            margin-bottom: auto;
+            gap: 0.6rem;
+            padding-top: 1.5rem;
+        }
+
+        nav > .sidebar-links {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        body.active .sidebar-links,
+        body.active .sidebar-header,
+        body.active .user-profile {
+            justify-content: start;
+            align-items: stretch;
+        }
+
+        .link {
+            display: flex;
+            padding: 0.8rem;
+            border-radius: 0.5rem;
+            gap: 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            align-items: center;
+        }
+
+        .hidden {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        body.active .hidden {
+            display: inline;
+            opacity: 1;
+        }
+
+        .link:hover,
+        .link.active:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .link.active {
+            background-color: rgba(255, 255, 255, 0.25);
+            font-weight: 600;
+        }
+
+        .link-icon {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .link:hover .link-icon {
+            transform: scale(1.1);
+        }
+
+        .sidebar-bottom .sidebar-links {
+            padding-bottom: 1.5rem;
+        }
+
+        .toggle-btn {
+            position: fixed;
+            top: 1.5rem;
+            right: -2.5rem;
+            padding: 0.5rem;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 90;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            border: none;
+            outline: none;
+        }
+
+        .toggle-btn:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        .toggle-icon {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+        body.active .toggle-btn {
+            transform: rotate(180deg);
+        }
+
+        .user-profile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            flex-shrink: 0;
+            background-color: var(--default-avatar-bg);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-avatar .avatar-fallback {
+            font-size: 1.5rem;
+            color: var(--default-icon-color);
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1);
+            border-color: white;
+        }
+
+        .user-details {
+            align-self: center;
+            overflow: hidden;
+            color: white;
+        }
+
+        .user-details .username {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .user-details .user-email {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 5rem;
+            padding: 2rem;
+            width: calc(100% - 5rem);
+            transition: margin-left 500ms ease;
+        }
+
+        body.active .main-content {
+            margin-left: 15rem;
+            width: calc(100% - 15rem);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease;
+            
+        }
+
+        .page-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(247, 243, 243, 0.962);
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), transparent);
+            border-radius: 3px;
+        }
+
+        /* Gallery Styles */
+        .gallery-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0;
+            width: 100%;
+            animation: slideUp 0.8s ease;
+        }
+
+        .gallery {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            overflow: hidden;
+            min-width: 600px;
+            max-width: 900px;
+            width: calc(100% - 100px);
+            height: 450px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(68, 65, 65, 0.86);
+        }
+
+        .gallery-option {
+            position: relative;
+            overflow: hidden;
+            min-width: 60px;
+            margin: 10px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+            filter: brightness(0.8);
+            border-radius: 20px;
+            background-color: var(--default-avatar-bg);
+        }
+
+        .gallery-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7));
+        }
+
+        .gallery-option:hover:not(.active) {
+            filter: brightness(0.9);
+            transform: translateY(-5px);
+        }
+
+        .gallery-option.active {
+            flex-grow: 10000;
+            transform: scale(1);
+            max-width: 600px;
+            margin: 0px;
+            border-radius: 40px;
+            background-size: cover;
+            filter: brightness(1);
+            box-shadow: 0 5px 20px rgba(134, 34, 34, 0.3);
+        }
+
+        .gallery-option.active .shadow {
+            box-shadow: inset 0 -120px 120px -120px rgba(0,0,0,0.8), 
+                        inset 0 -120px 120px -100px rgba(0,0,0,0.7);
+        }
+
+        .gallery-option.active .label {
+            bottom: 30px;
+            left: 30px;
+        }
+
+        .gallery-option.active .label .info > div {
+            left: 0px;
+            opacity: 1;
+        }
+
+        .gallery-option:not(.active) {
+            flex-grow: 1;
+            border-radius: 30px;
+        }
+
+        .gallery-option:not(.active) .shadow {
+            bottom: -40px;
+            box-shadow: inset 0 -120px 0px -120px rgba(0,0,0,0.8), 
+                        inset 0 -120px 0px -100px rgba(0,0,0,0.7);
+        }
+
+        .gallery-option:not(.active) .label {
+            bottom: 15px;
+            left: 15px;
+        }
+
+        .gallery-option:not(.active) .label .info > div {
+            left: 20px;
+            opacity: 0;
+        }
+
+        .gallery-option .shadow {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 120px;
+            transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+        }
+
+        .gallery-option .label {
+            display: flex;
+            position: absolute;
+            right: 0px;
+            height: 40px;
+            transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+        }
+
+        .gallery-option .label .icon {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            min-width: 40px;
+            max-width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            background-color: white;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-option.active .label .icon {
+            transform: scale(1.1);
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .gallery-option .label .info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 10px;
+            color: white;
+            white-space: pre;
+        }
+
+        .gallery-option .label .info > div {
+            position: relative;
+            transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95), opacity 0.5s ease-out;
+        }
+
+        .gallery-option .label .info .main {
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+            margin-bottom: 5px;
+        }
+
+        .gallery-option .label .info .sub {
+            transition-delay: 0.1s;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        /* Content Sections */
+        .content-section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--primary-light));
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            border-radius: 3px;
+        }
+
+        .social-section {
+            background-color: #f0f0f0;
+            padding: 3rem 0;
+            text-align: center;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: var(--primary-dark);
+        }
+
+        .social-icons a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .social-icons a:hover::after {
+            width: 100%;
+        }
+
+        .whatsapp-button {
+            background-color: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #128C7E;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-button:active {
+            transform: translateY(1px);
+        }
+
+        .whatsapp-button i {
+            margin-right: 10px;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+            transition: all 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #f0f0f0;
+            text-decoration: none;
+        }
+
+        /* Image Fallback Styles */
+        .img-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--default-avatar-bg);
+            color: var(--default-icon-color);
+            font-size: 1.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .gallery {
+                height: 400px;
+            }
+            
+            .content-section {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery {
+                min-width: 280px;
+                height: 350px;
+            }
+            
+            .gallery-option:not(:first-child) {
+                display: none;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .social-icons a {
+                font-size: 2rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 1.5rem;
+            }
+            
+            .gallery {
+                height: 300px;
+                width: calc(100% - 40px);
+            }
+            
+            .gallery-option.active .label {
+                bottom: 20px;
+                left: 20px;
+            }
+            
+            .gallery-option .label .info .main {
+                font-size: 1.3rem;
+            }
+            
+            .gallery-option .label .info .sub {
+                font-size: 1rem;
+            }
+            
+            .whatsapp-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <p class="text">Olá! Queremos agradecer por ter participado do nosso grupo Movimento Jovem ontem! <span class="emoji">🙏</span></p>
-        <p class="text">Esperamos que a experiência tenha sido enriquecedora e que Deus tenha tocado no seu coração de alguma forma ❤️
-           <p class="text"> Agradecemos pela sua presença e pelo seu envolvimento <span class="emoji">🙌</span></p>
-            Que a paz e o amor de Deus continuem a guiar você em sua jornada! <span class="emoji">✝️</span>
-        </p>
-        <button class="styled-button" onclick="showMessage()">Clique aqui</button>
-        <div id="message" class="hidden floating-smoke">Até a próxima! 😊</div>
+    <!-- Sidebar Navigation -->
+    <nav>
+        <div class="sidebar-header">
+            <a class="logo-wrapper">
+                <div class="logo-img" id="logo-container">
+                    <span class="img-fallback">MJ</span>
+                </div>
+                <h2 class="hidden">Movimento Jovem</h2>
+            </a>
+        </div>
+
+        <div class="sidebar-links">
+            <a href="#home" class="link active">
+                <div class="link-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <span class="hidden">Início</span>
+            </a>
+            <a href="#sobre" class="link">
+                <div class="link-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <span class="hidden">Sobre Nós</span>
+            </a>
+            <a href="#atividades" class="link">
+                <div class="link-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <span class="hidden">Atividades</span>
+            </a>
+            <a href="#contato" class="link">
+                <div class="link-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <span class="hidden">Contato</span>
+            </a>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="user-profile">
+                <div class="user-avatar" id="user-avatar">
+                    <span class="avatar-fallback">C</span>
+                </div>
+                <div class="user-details hidden">
+                    <p class="username">Coordenadora</p>
+                    <p class="user-email">contato@movimentojovem.com</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <button class="toggle-btn" aria-label="Alternar menu">
+        <div class="toggle-icon">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+    </button>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1 class="page-title">Movimento Jovem</h1>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="gallery-container" id="home">
+            <div class="gallery" id="image-gallery">
+                <!-- As opções serão inseridas dinamicamente via JavaScript -->
+            </div>
+        </div>
+        
+        <section class="content-section" id="sobre">
+            <h2 class="section-title">Sobre Nós</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 20px; font-size: 1.1rem; line-height: 1.6;">
+                O Movimento Jovem é uma iniciativa da igreja que busca engajar jovens em atividades espirituais, 
+                sociais e comunitárias. Nosso objetivo é criar um espaço acolhedor onde os jovens possam crescer 
+                na fé, desenvolver seus talentos e servir à comunidade.
+            </p>
+            <div class="mission-cards">
+                <div class="mission-card">
+                    <h3><i class="fas fa-bullseye"></i> Missão</h3>
+                    <p>Acolher, formar e inspirar jovens a viverem sua fé de maneira autêntica e transformadora.</p>
+                </div>
+                <div class="mission-card">
+                    <h3><i class="fas fa-eye"></i> Visão</h3>
+                    <p>Ser referência na formação de jovens cristãos comprometidos com os valores do Evangelho.</p>
+                </div>
+                <div class="mission-card">
+                    <h3><i class="fas fa-heart"></i> Valores</h3>
+                    <p>Fé, Comunhão, Serviço, Alegria e Respeito à diversidade.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-section" id="atividades">
+            <h2 class="section-title">Nossas Atividades</h2>
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <h3><i class="fas fa-calendar-check"></i> Encontros Semanais</h3>
+                    <p>Todas as quintas-feiras às 20h, temos nosso encontro de jovens com música, oração e partilha.</p>
+                </div>
+                <div class="activity-card">
+                    <h3><i class="fas fa-mountain"></i> Retiros Espirituais</h3>
+                    <p>Realizamos retiros trimestrais para aprofundamento espiritual e convivência fraterna.</p>
+                </div>
+                <div class="activity-card">
+                    <h3><i class="fas fa-hands-helping"></i> Ações Sociais</h3>
+                    <p>Mensalmente visitamos asilos, orfanatos e comunidades carentes para levar amor e assistência.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="social-section" id="contato">
+            <h2 class="section-title">Entre em Contato</h2>
+            <p class="contact-text">
+                Quer fazer parte do Movimento Jovem ou saber mais sobre nossas atividades? Entre em contato conosco!
+            </p>
+            
+            <a href="https://wa.me/5511999999999" class="whatsapp-button" target="_blank">
+                <i class="fab fa-whatsapp"></i> Falar com a Coordenadora
+            </a>
+            
+            <div class="social-icons">
+                <a href="https://www.instagram.com/movimentojovem" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/movimentojovem" target="_blank" aria-label="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://www.youtube.com/movimentojovem" target="_blank" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </section>
+        
+        <footer>
+            <p>&copy; <span id="current-year"></span> Movimento Jovem - Todos os direitos reservados</p>
+            <p>
+                <a href="mailto:contato@movimentojovem.com">contato@movimentojovem.com</a>
+            </p>
+        </footer>
     </div>
-    <script src="script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        // Configurações globais
+        const config = {
+            logo: {
+                imageUrl: 'mj.png',
+                fallbackText: 'MJ'
+            },
+            userAvatar: {
+                imageUrl: 'D:\Sites.html\convite\site do MJ\mj.png',
+                fallbackText: 'C'
+            },
+            galleryImages: [
+                {
+                    imageUrl: 'https://github.com/MmdsDEV/Noite/blob/main/jesus.jpeg?raw=true',
+                    fallbackColor: '#ED5565',
+                    icon: 'fas fa-hands-helping',
+                    title: 'Junte-se a Nós',
+                    subtitle: 'Faça parte do nosso movimento'
+                },
+                {
+                    imageUrl: 'https://github.com/MmdsDEV/Noite/blob/main/img1.jpeg?raw=true',
+                    fallbackColor: '#FC6E51',
+                    icon: 'fas fa-pray',
+                    title: 'Retiros Espirituais',
+                    subtitle: 'Encontros de fé e renovação'
+                },
+                {
+                    imageUrl: 'https://github.com/MmdsDEV/convite2/blob/main/igreja.png?raw=true',
+                    fallbackColor: '#FFCE54',
+                    icon: 'fas fa-users',
+                    title: 'Comunidade',
+                    subtitle: 'Cresça junto conosco'
+                },
+                {
+                    imageUrl: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                    fallbackColor: '#2ECC71',
+                    icon: 'fas fa-hands',
+                    title: 'Ações Sociais',
+                    subtitle: 'Servir com amor'
+                },
+                {
+                    imageUrl: 'https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80',
+                    fallbackColor: '#5D9CEC',
+                    icon: 'fas fa-calendar-alt',
+                    title: 'Eventos',
+                    subtitle: 'Participe das nossas atividades'
+                }
+            ]
+        };
+
+        // Função para carregar imagens com fallback
+        function loadImageWithFallback(container, imageUrl, fallbackContent, isBackground = false) {
+            const img = new Image();
+            
+            img.onload = function() {
+                if (isBackground) {
+                    container.style.backgroundImage = `url(${imageUrl})`;
+                } else {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageUrl;
+                    imgElement.alt = '';
+                    container.innerHTML = '';
+                    container.appendChild(imgElement);
+                }
+            };
+            
+            img.onerror = function() {
+                if (isBackground) {
+                    container.style.backgroundColor = fallbackContent.color || 'var(--default-avatar-bg)';
+                } else {
+                    container.innerHTML = typeof fallbackContent === 'string' 
+                        ? `<span class="img-fallback">${fallbackContent}</span>`
+                        : fallbackContent.html || `<span class="img-fallback">${fallbackContent.text || '?'}</span>`;
+                }
+            };
+            
+            img.src = imageUrl;
+        }
+
+        // Inicialização da galeria
+        function initGallery() {
+            const gallery = document.getElementById('image-gallery');
+            
+            config.galleryImages.forEach((item, index) => {
+                const option = document.createElement('div');
+                option.className = `gallery-option ${index === 0 ? 'active' : ''}`;
+                option.style.setProperty('--optionBackground', item.imageUrl);
+                option.style.backgroundColor = item.fallbackColor;
+                
+                option.innerHTML = `
+                    <div class="shadow"></div>
+                    <div class="label">
+                        <div class="icon">
+                            <i class="${item.icon}"></i>
+                        </div>
+                        <div class="info">
+                            <div class="main">${item.title}</div>
+                            <div class="sub">${item.subtitle}</div>
+                        </div>
+                    </div>
+                `;
+                
+                // Verifica se a imagem carrega corretamente
+                loadImageWithFallback(option, item.imageUrl, { color: item.fallbackColor }, true);
+                
+                option.addEventListener('click', function() {
+                    $(".gallery-option").removeClass("active");
+                    $(this).addClass("active");
+                });
+                
+                gallery.appendChild(option);
+            });
+        }
+
+        // Carrega a logo
+        function loadLogo() {
+            const logoContainer = document.getElementById('logo-container');
+            loadImageWithFallback(logoContainer, config.logo.imageUrl, config.logo.fallbackText);
+        }
+
+        // Carrega o avatar do usuário
+        function loadUserAvatar() {
+            const avatarContainer = document.getElementById('user-avatar');
+            loadImageWithFallback(avatarContainer, config.userAvatar.imageUrl, config.userAvatar.fallbackText);
+        }
+
+        // Sidebar Toggle Functionality
+        const sidebarBtn = document.querySelector(".toggle-btn");
+        
+        sidebarBtn.addEventListener("click", () => {
+            document.body.classList.toggle("active");
+        });
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Update active link in sidebar
+                document.querySelectorAll('.sidebar-links .link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Set active link based on scroll position
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.sidebar-links .link');
+            const scrollPosition = window.pageYOffset;
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollPosition >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Move the toggle button with scroll
+            const toggleBtn = document.querySelector('.toggle-btn');
+            const newTop = Math.max(1.5, 1.5 - scrollPosition * 0.1);
+            toggleBtn.style.top = `${newTop}rem`;
+            
+            // Add shadow to navbar when scrolling
+            const nav = document.querySelector('nav');
+            if (scrollPosition > 10) {
+                nav.style.boxShadow = '2px 0 15px rgba(0, 0, 0, 0.2)';
+            } else {
+                nav.style.boxShadow = '2px 0 10px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Add hover effects to content cards
+        document.querySelectorAll('.mission-card, .activity-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+                card.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = 'var(--shadow)';
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Initialize all components when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            loadLogo();
+            loadUserAvatar();
+            initGallery();
+        });
+    </script>
 </body>
 </html>
