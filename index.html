@@ -5,26 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Movimento Jovem</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0b1631;
-            --primary-light: #4a6fbb;
-            --primary-dark: #09122b;
-            --text-light: #ffffff;
+            --primary-blue: #0a1f44;
+            --primary-light: #2d5bbd;
+            --accent-blue: #1a73e8;
+            --white: #ffffff;
+            --black: #000000;
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --text-light: #f5f5f5;
             --text-dark: #222222;
-            --background-light: #f8f9fa;
-            --background-dark: #121212;
             --shadow: 0 4px 12px rgba(0,0,0,0.15);
-            --default-avatar-bg: #e0e0e0;
-            --default-icon-color: #555555;
             --mobile-breakpoint: 768px;
-            --contrast-ratio: 4.5;
         }
 
-        *,
-        *::before,
-        *::after {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -37,7 +34,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--background-light);
+            background-color: var(--white);
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
@@ -48,33 +45,22 @@
 
         @media (prefers-color-scheme: dark) {
             body:not(.light) {
-                background: var(--background-dark);
+                background: var(--dark-bg);
                 color: var(--text-light);
-            }
-            body:not(.light) .content-section {
-                background-color: #1e1e1e;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            }
-            body:not(.light) .mission-card,
-            body:not(.light) .activity-card {
-                background-color: #2a2a2a;
-            }
-            body:not(.light) .social-section {
-                background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
             }
         }
 
         /* Mobile Header */
         .mobile-header {
             display: none;
-            background-color: var(--primary-color);
+            background-color: var(--primary-blue);
             padding: 1rem;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             height: 70px;
         }
 
@@ -82,7 +68,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            color: white;
+            color: var(--white);
             text-decoration: none;
             height: 100%;
         }
@@ -90,20 +76,18 @@
         .mobile-header .logo-img {
             width: 40px;
             height: 40px;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: var(--accent-blue);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            color: white;
-            flex-shrink: 0;
+            color: var(--white);
         }
 
         .mobile-header .logo-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: white;
         }
 
         .mobile-menu-btn {
@@ -113,7 +97,7 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: white;
+            color: var(--white);
             font-size: 1.5rem;
             cursor: pointer;
             width: 40px;
@@ -136,7 +120,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0,0,0,0.8);
             z-index: 999;
             opacity: 0;
             pointer-events: none;
@@ -155,12 +139,11 @@
             width: 85%;
             max-width: 320px;
             height: 100vh;
-            background-color: var(--primary-dark);
+            background-color: var(--primary-blue);
             z-index: 1000;
             transition: left 0.3s ease;
             padding: 1.5rem 1rem;
             overflow-y: auto;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.3);
         }
 
         .mobile-menu.active {
@@ -172,19 +155,9 @@
             align-items: center;
             gap: 1rem;
             margin-bottom: 2rem;
-            color: white;
+            color: var(--white);
             padding-bottom: 1rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .mobile-menu .logo-img {
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-        }
-
-        .mobile-menu .logo-title {
-            font-size: 1.3rem;
         }
 
         .mobile-menu .sidebar-links {
@@ -197,7 +170,7 @@
         .mobile-menu .link {
             padding: 1rem;
             border-radius: 8px;
-            color: white;
+            color: var(--white);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -207,7 +180,7 @@
 
         .mobile-menu .link:hover,
         .mobile-menu .link.active {
-            background-color: rgba(255,255,255,0.15);
+            background-color: var(--accent-blue);
         }
 
         .mobile-menu .link-icon {
@@ -228,45 +201,17 @@
             margin-top: auto;
         }
 
-        .mobile-menu .user-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .mobile-menu .user-details {
-            color: white;
-        }
-
-        .mobile-menu .username {
-            font-weight: 600;
-            margin-bottom: 0.2rem;
-        }
-
-        .mobile-menu .user-email {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
         /* Desktop Sidebar */
         nav {
             width: 80px;
             height: 100vh;
-            background-color: var(--primary-color);
+            background-color: var(--primary-blue);
             padding: 1.5rem 1rem;
             display: flex;
             flex-direction: column;
             position: fixed;
             transition: width 0.3s ease;
             z-index: 100;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.2);
         }
 
         body.active nav {
@@ -287,21 +232,20 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            color: white;
+            color: var(--white);
             text-decoration: none;
         }
 
         .logo-img {
             width: 50px;
             height: 50px;
-            background-color: rgba(255,255,255,0.2);
+            background-color: var(--accent-blue);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            color: white;
-            flex-shrink: 0;
+            color: var(--white);
         }
 
         .logo-title {
@@ -326,7 +270,7 @@
         .link {
             padding: 0.8rem 1rem;
             border-radius: 8px;
-            color: white;
+            color: var(--white);
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -336,7 +280,7 @@
 
         .link:hover,
         .link.active {
-            background-color: rgba(255,255,255,0.15);
+            background-color: var(--accent-blue);
             transform: translateX(5px);
         }
 
@@ -346,7 +290,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
         }
 
         .link-text {
@@ -365,80 +308,27 @@
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.8rem;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-
-        .user-profile:hover {
-            background-color: rgba(255,255,255,0.1);
-        }
-
-        .user-avatar {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .user-details {
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s;
-            overflow: hidden;
-        }
-
-        body.active .user-details {
-            opacity: 1;
-        }
-
-        .username {
-            font-weight: 600;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-        .user-email {
-            font-size: 0.8rem;
-            opacity: 0.8;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
         .toggle-btn {
             position: fixed;
             top: 1.5rem;
             right: -50px;
             width: 40px;
             height: 40px;
-            background-color: var(--primary-color);
+            background-color: var(--primary-blue);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             z-index: 90;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow);
             border: none;
-            color: white;
+            color: var(--white);
             transition: all 0.3s;
         }
 
         .toggle-btn:hover {
-            background-color: var(--primary-dark);
+            background-color: var(--primary-light);
             transform: scale(1.1);
         }
 
@@ -462,11 +352,10 @@
 
         .header {
             margin-bottom: 2.5rem;
-            animation: fadeIn 0.5s ease;
         }
 
         .page-title {
-            color: var(--primary-color);
+            color: var(--primary-blue);
             font-size: clamp(1.8rem, 5vw, 2.5rem);
             font-weight: 700;
             position: relative;
@@ -480,11 +369,11 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), transparent);
+            background: linear-gradient(90deg, var(--primary-blue), transparent);
             border-radius: 2px;
         }
 
-        /* Gallery Styles */
+        /* Gallery Styles - MODIFICADO PARA MOSTRAR IMAGENS INTEIRAS */
         .gallery-container {
             width: 100%;
             padding: 1.5rem 0;
@@ -494,20 +383,24 @@
 
         .gallery {
             display: flex;
-            height: 400px;
+            height: 500px;
             gap: 10px;
             width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
         }
 
         .gallery-option {
             position: relative;
             flex: 1;
-            border-radius: 20px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
-            filter: brightness(0.8);
-            min-width: 60px;
+            filter: brightness(0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
         }
 
         .gallery-option.active {
@@ -515,50 +408,46 @@
             filter: brightness(1);
         }
 
-        .gallery-option::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
-        }
-
         .gallery-content {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-option.active .gallery-content {
+            transform: scale(1.02);
         }
 
         .gallery-label {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            color: white;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            color: var(--white);
             display: flex;
             align-items: flex-end;
             gap: 15px;
         }
 
         .gallery-icon {
-            width: 40px;
-            height: 40px;
-            background-color: white;
+            width: 50px;
+            height: 50px;
+            background-color: var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary-color);
+            color: var(--primary-blue);
             flex-shrink: 0;
-            font-size: 1.2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            font-size: 1.5rem;
         }
 
         .gallery-option.active .gallery-icon {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: var(--accent-blue);
+            color: var(--white);
         }
 
         .gallery-text {
@@ -568,13 +457,11 @@
         .gallery-title {
             font-weight: 700;
             font-size: clamp(1.2rem, 3vw, 1.8rem);
-            margin-bottom: 5px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
         }
 
         .gallery-subtitle {
             font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
             opacity: 0.9;
         }
 
@@ -583,10 +470,16 @@
             max-width: 1200px;
             margin: 2rem auto;
             padding: clamp(1.5rem, 4vw, 2.5rem);
-            background-color: white;
+            background-color: var(--white);
             border-radius: 15px;
             box-shadow: var(--shadow);
             position: relative;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .content-section {
+                background-color: var(--dark-card);
+            }
         }
 
         .content-section::before {
@@ -596,17 +489,23 @@
             left: 0;
             width: 6px;
             height: 100%;
-            background: linear-gradient(to bottom, var(--primary-color), var(--primary-light));
+            background: linear-gradient(to bottom, var(--primary-blue), var(--primary-light));
             border-radius: 0 6px 6px 0;
         }
 
         .section-title {
-            color: var(--primary-color);
+            color: var(--primary-blue);
             text-align: center;
             font-size: clamp(1.6rem, 4vw, 2.2rem);
             margin-bottom: 2rem;
             font-weight: 700;
             position: relative;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .section-title {
+                color: var(--accent-blue);
+            }
         }
 
         .section-title::after {
@@ -617,44 +516,12 @@
             transform: translateX(-50%);
             width: 100px;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-light));
             border-radius: 2px;
         }
 
-        .mission-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .mission-card {
-            padding: 1.5rem;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
-        }
-
-        .mission-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1.2rem;
-        }
-
-        .mission-card i {
-            color: var(--primary-light);
-            font-size: 1.3rem;
-        }
-
-        .mission-card p {
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-
+        /* Cards */
+        .mission-cards,
         .activities-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -662,40 +529,62 @@
             margin-top: 2rem;
         }
 
+        .mission-card,
         .activity-card {
-            padding: 1.5rem;
-            background-color: white;
-            border-radius: 10px;
+            padding: 1.8rem;
+            background-color: var(--white);
+            border-radius: 12px;
             box-shadow: var(--shadow);
             transition: all 0.3s;
         }
 
+        @media (prefers-color-scheme: dark) {
+            .mission-card,
+            .activity-card {
+                background-color: var(--dark-card);
+            }
+        }
+
+        .mission-card h3,
         .activity-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.2rem;
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            font-size: 1.2rem;
-        }
-
-        .activity-card i {
-            color: var(--primary-light);
             font-size: 1.3rem;
         }
 
+        @media (prefers-color-scheme: dark) {
+            .mission-card h3,
+            .activity-card h3 {
+                color: var(--accent-blue);
+            }
+        }
+
+        .mission-card i,
+        .activity-card i {
+            font-size: 1.4rem;
+        }
+
+        .mission-card p,
         .activity-card p {
-            color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         /* Social Section */
         .social-section {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            background: linear-gradient(135deg, #f0f4f9 0%, #d9e3f0 100%);
             padding: clamp(2rem, 5vw, 3.5rem) 0;
             text-align: center;
             border-radius: 15px;
             margin-top: 2rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .social-section {
+                background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            }
         }
 
         .contact-text {
@@ -704,12 +593,11 @@
             padding: 0 1rem;
             font-size: clamp(1rem, 2vw, 1.1rem);
             line-height: 1.7;
-            color: var(--text-dark);
         }
 
         .whatsapp-button {
             background-color: #25D366;
-            color: white;
+            color: var(--white);
             padding: clamp(0.8rem, 2vw, 1rem) clamp(1.5rem, 3vw, 2rem);
             border-radius: 30px;
             text-decoration: none;
@@ -731,10 +619,6 @@
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
         }
 
-        .whatsapp-button:active {
-            transform: translateY(1px);
-        }
-
         .social-icons {
             display: flex;
             justify-content: center;
@@ -744,26 +628,26 @@
         }
 
         .social-icons a {
-            color: var(--primary-color);
+            color: var(--primary-blue);
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .social-icons a {
+                color: var(--accent-blue);
+            }
         }
 
         .social-icons a:hover {
-            color: var(--primary-dark);
-            transform: translateY(-5px) scale(1.1);
+            color: var(--primary-light);
+            transform: translateY(-5px);
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--black) 100%);
+            color: var(--white);
             text-align: center;
             padding: clamp(1.5rem, 3vw, 2.5rem);
             margin-top: 3rem;
@@ -776,7 +660,7 @@
         }
 
         footer a {
-            color: white;
+            color: var(--white);
             text-decoration: underline;
             transition: all 0.3s;
         }
@@ -786,39 +670,10 @@
             text-decoration: none;
         }
 
-        /* Image Fallback */
-        .img-fallback {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--default-avatar-bg);
-            color: var(--default-icon-color);
-            font-size: 1.5rem;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { 
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         /* Responsive Adjustments */
         @media (max-width: 992px) {
             .gallery {
-                height: 350px;
+                height: 400px;
             }
         }
 
@@ -841,66 +696,34 @@
             
             /* Gallery Mobile */
             .gallery {
-                height: 300px;
-                gap: 5px;
-            }
-            
-            .gallery-option:not(.active) {
-                min-width: 20px;
+                height: 350px;
             }
             
             .gallery-label {
-                bottom: 15px;
-                left: 15px;
-                right: 15px;
-            }
-            
-            /* Content Sections */
-            .content-section {
                 padding: 1.5rem;
-                margin: 1.5rem 0;
             }
         }
 
         @media (max-width: 576px) {
             .gallery {
-                height: 250px;
-            }
-            
-            .gallery-title {
-                font-size: 1.2rem;
-            }
-            
-            .gallery-subtitle {
-                font-size: 0.9rem;
+                height: 300px;
             }
             
             .mission-cards,
             .activities-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .whatsapp-button {
-                width: 100%;
-                max-width: 300px;
-            }
         }
 
         @media (max-width: 400px) {
             .gallery {
-                height: 200px;
-            }
-            
-            .gallery-label {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+                height: 250px;
             }
             
             .gallery-icon {
-                width: 35px;
-                height: 35px;
-                font-size: 1rem;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
         }
     </style>
@@ -964,7 +787,6 @@
             </div>
             <div class="user-details">
                 <p class="username">Coordenadora</p>
-                <p class="user-email">contato@movimentojovem.com</p>
             </div>
         </div>
     </div>
@@ -1014,7 +836,6 @@
                 </div>
                 <div class="user-details">
                     <p class="username">Coordenadora</p>
-                    <p class="user-email">contato@movimentojovem.com</p>
                 </div>
             </div>
         </div>
@@ -1104,55 +925,52 @@
     </main>
     
     <footer>
-        <p>&copy; <span id="current-year"></span> Movimento Jovem - Todos os direitos reservados</p>
-        <p>
-            <a href="mailto:contato@movimentojovem.com">contato@movimentojovem.com</a>
-        </p>
+        <p>Movimento Jovem - Todos os direitos reservados</p>
     </footer>
 
     <script>
-        // Configurações globais
+        // Configurações globais ATUALIZADAS
         const config = {
             logo: {
-                imageUrl: 'mj.png',
+                imageUrl: 'https://github.com/MmdsDEV/convite2/blob/main/mj.png?raw=true',
                 fallbackText: 'MJ'
             },
             userAvatar: {
-                imageUrl: 'mj.png',
+                imageUrl: 'https://github.com/MmdsDEV/site2/blob/main/mj.png?raw=true',
                 fallbackText: 'C'
             },
             galleryImages: [
                 {
                     imageUrl: 'https://github.com/MmdsDEV/Noite/blob/main/jesus.jpeg?raw=true',
-                    fallbackColor: '#ED5565',
+                    fallbackColor: '#0a1f44',
                     icon: 'fas fa-hands-helping',
                     title: 'Junte-se a Nós',
                     subtitle: 'Faça parte do nosso movimento'
                 },
                 {
                     imageUrl: 'https://github.com/MmdsDEV/Noite/blob/main/img1.jpeg?raw=true',
-                    fallbackColor: '#FC6E51',
+                    fallbackColor: '#0a1f44',
                     icon: 'fas fa-pray',
                     title: 'Retiros Espirituais',
                     subtitle: 'Encontros de fé e renovação'
                 },
                 {
                     imageUrl: 'https://github.com/MmdsDEV/convite2/blob/main/igreja.png?raw=true',
-                    fallbackColor: '#FFCE54',
+                    fallbackColor: '#0a1f44',
                     icon: 'fas fa-users',
                     title: 'Comunidade',
                     subtitle: 'Cresça junto conosco'
                 },
                 {
                     imageUrl: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-                    fallbackColor: '#2ECC71',
+                    fallbackColor: '#0a1f44',
                     icon: 'fas fa-hands',
                     title: 'Ações Sociais',
                     subtitle: 'Servir com amor'
                 },
                 {
-                    imageUrl: 'https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80',
-                    fallbackColor: '#5D9CEC',
+                    imageUrl: 'https://github.com/MmdsDEV/convite2/blob/main/download.jfif?raw=true',
+                    fallbackColor: '#0a1f44',
                     icon: 'fas fa-calendar-alt',
                     title: 'Eventos',
                     subtitle: 'Participe das nossas atividades'
@@ -1160,47 +978,99 @@
             ]
         };
 
-        // Função para carregar imagens com fallback
+        // Função MELHORADA para carregar imagens com fallback
         function loadImageWithFallback(container, imageUrl, fallbackContent, isBackground = false) {
+            if (!container) {
+                console.error('Container não encontrado');
+                return;
+            }
+
             const img = new Image();
             
             img.onload = function() {
                 if (isBackground) {
-                    container.style.backgroundImage = `url(${imageUrl})`;
+                    container.style.backgroundImage = `url('${imageUrl}')`;
+                    container.style.backgroundSize = 'contain';
+                    container.style.backgroundPosition = 'center';
+                    container.style.backgroundRepeat = 'no-repeat';
+                    container.style.backgroundColor = '#f0f0f0';
                 } else {
+                    container.innerHTML = '';
                     const imgElement = document.createElement('img');
                     imgElement.src = imageUrl;
                     imgElement.alt = '';
-                    imgElement.loading = 'lazy';
-                    container.innerHTML = '';
+                    imgElement.style.width = '100%';
+                    imgElement.style.height = '100%';
+                    imgElement.style.objectFit = 'contain';
                     container.appendChild(imgElement);
                 }
             };
             
             img.onerror = function() {
+                console.error('Erro ao carregar imagem:', imageUrl);
                 if (isBackground) {
-                    container.style.backgroundColor = fallbackContent.color || 'var(--default-avatar-bg)';
+                    container.style.backgroundColor = fallbackContent.color || '#0a1f44';
+                    container.innerHTML = `
+                        <div style="
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: white;
+                            font-size: 1.5rem;
+                            background-color: ${fallbackContent.color || '#0a1f44'};
+                        ">
+                            ${fallbackContent.title || 'Imagem não disponível'}
+                        </div>
+                    `;
                 } else {
-                    container.innerHTML = typeof fallbackContent === 'string' 
-                        ? `<span class="img-fallback">${fallbackContent}</span>`
-                        : fallbackContent.html || `<span class="img-fallback">${fallbackContent.text || '?'}</span>`;
+                    container.innerHTML = `
+                        <div style="
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background-color: ${fallbackContent.color || '#0a1f44'};
+                            color: white;
+                            font-size: 1.2rem;
+                            border-radius: 8px;
+                        ">
+                            ${fallbackContent.text || '?'}
+                        </div>
+                    `;
                 }
             };
             
             img.src = imageUrl;
         }
 
-        // Inicialização da galeria com suporte mobile
+        // Função ATUALIZADA para inicializar a galeria
         function initGallery() {
             const gallery = document.getElementById('image-gallery');
+            
+            if (!gallery) {
+                console.error('Elemento da galeria não encontrado');
+                return;
+            }
+            
+            // Limpa a galeria antes de adicionar novos itens
+            gallery.innerHTML = '';
             
             config.galleryImages.forEach((item, index) => {
                 const option = document.createElement('div');
                 option.className = `gallery-option ${index === 0 ? 'active' : ''}`;
-                option.style.backgroundColor = item.fallbackColor;
                 
                 option.innerHTML = `
-                    <div class="gallery-content"></div>
+                    <div class="gallery-content" style="
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #f0f0f0;
+                    "></div>
                     <div class="gallery-label">
                         <div class="gallery-icon">
                             <i class="${item.icon}"></i>
@@ -1212,35 +1082,36 @@
                     </div>
                 `;
                 
-                // Carrega a imagem com fallback
                 const contentDiv = option.querySelector('.gallery-content');
-                loadImageWithFallback(contentDiv, item.imageUrl, { color: item.fallbackColor }, true);
+                if (contentDiv) {
+                    loadImageWithFallback(contentDiv, item.imageUrl, {
+                        color: item.fallbackColor,
+                        title: item.title
+                    }, true);
+                }
                 
-                // Evento de clique otimizado para mobile
                 option.addEventListener('click', function() {
-                    // Se já está ativo, não faz nada (para evitar flickering em mobile)
                     if (this.classList.contains('active')) return;
                     
-                    // Remove a classe active de todos os itens
                     document.querySelectorAll('.gallery-option').forEach(item => {
                         item.classList.remove('active');
                     });
                     
-                    // Adiciona a classe active ao item clicado
                     this.classList.add('active');
                 });
                 
                 gallery.appendChild(option);
             });
             
-            // Suporte para swipe em dispositivos móveis
             setupGallerySwipe();
         }
 
         // Configura o swipe para a galeria em dispositivos móveis
         function setupGallerySwipe() {
             const gallery = document.getElementById('image-gallery');
-            let startX, moveX;
+            if (!gallery) return;
+            
+            let startX = 0;
             let currentIndex = 0;
             const items = gallery.querySelectorAll('.gallery-option');
             const itemCount = items.length;
@@ -1249,16 +1120,12 @@
                 startX = e.touches[0].clientX;
             }, { passive: true });
             
-            gallery.addEventListener('touchmove', (e) => {
+            gallery.addEventListener('touchend', (e) => {
                 if (!startX) return;
-                moveX = e.touches[0].clientX;
-            }, { passive: true });
-            
-            gallery.addEventListener('touchend', () => {
-                if (!startX || !moveX) return;
                 
-                const diffX = startX - moveX;
-                const threshold = 50; // Mínimo de pixels para considerar um swipe
+                const endX = e.changedTouches[0].clientX;
+                const diffX = startX - endX;
+                const threshold = 50;
                 
                 if (Math.abs(diffX) > threshold) {
                     if (diffX > 0) {
@@ -1275,27 +1142,8 @@
                     });
                 }
                 
-                startX = null;
-                moveX = null;
+                startX = 0;
             }, { passive: true });
-        }
-
-        // Carrega a logo
-        function loadLogo() {
-            const logoContainer = document.getElementById('logo-container');
-            const mobileLogoContainer = document.getElementById('mobile-logo-container');
-            
-            loadImageWithFallback(logoContainer, config.logo.imageUrl, config.logo.fallbackText);
-            
-            if (mobileLogoContainer) {
-                loadImageWithFallback(mobileLogoContainer, config.logo.imageUrl, config.logo.fallbackText);
-            }
-        }
-
-        // Carrega o avatar do usuário
-        function loadUserAvatar() {
-            const avatarContainer = document.getElementById('user-avatar');
-            loadImageWithFallback(avatarContainer, config.userAvatar.imageUrl, config.userAvatar.fallbackText);
         }
 
         // Sidebar Toggle Functionality - Desktop
@@ -1356,7 +1204,6 @@
                     const targetElement = document.querySelector(targetId);
                     
                     if (targetElement) {
-                        // Calcula a posição considerando o header fixo em mobile
                         const headerHeight = window.innerWidth <= 768 ? 70 : 0;
                         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
                         
@@ -1371,12 +1218,8 @@
                         });
                         this.classList.add('active');
                         
-                        // Atualiza a URL sem recarregar a página
-                        if (history.pushState) {
-                            history.pushState(null, null, targetId);
-                        } else {
-                            location.hash = targetId;
-                        }
+                        // Atualiza a URL
+                        history.pushState(null, null, targetId);
                     }
                 });
             });
@@ -1408,50 +1251,49 @@
             });
         }
 
-        // Configura os efeitos hover dos cards (apenas desktop)
-        function setupCardHoverEffects() {
-            if (window.innerWidth > 768) {
-                document.querySelectorAll('.mission-card, .activity-card').forEach(card => {
-                    card.addEventListener('mouseenter', () => {
-                        card.style.transform = 'translateY(-5px)';
-                        card.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
-                    });
-                    
-                    card.addEventListener('mouseleave', () => {
-                        card.style.transform = '';
-                        card.style.boxShadow = '';
-                    });
-                });
-            }
-        }
-
-        // Atualiza o ano no footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-
-        // Inicializa tudo quando o DOM estiver pronto
+        // Inicialização MELHORADA
         document.addEventListener('DOMContentLoaded', function() {
-            loadLogo();
-            loadUserAvatar();
+            console.log('DOM carregado - Iniciando carregamento de imagens');
+            
+            // Carrega a logo
+            const logoContainer = document.getElementById('logo-container');
+            const mobileLogoContainer = document.getElementById('mobile-logo-container');
+            
+            if (logoContainer) {
+                loadImageWithFallback(logoContainer, config.logo.imageUrl, config.logo);
+            } else {
+                console.error('Container do logo não encontrado');
+            }
+            
+            if (mobileLogoContainer) {
+                loadImageWithFallback(mobileLogoContainer, config.logo.imageUrl, config.logo);
+            } else {
+                console.error('Container do mobile logo não encontrado');
+            }
+            
+            // Carrega o avatar do usuário
+            const avatarContainer = document.getElementById('user-avatar');
+            if (avatarContainer) {
+                loadImageWithFallback(avatarContainer, config.userAvatar.imageUrl, config.userAvatar);
+            } else {
+                console.error('Container do avatar não encontrado');
+            }
+            
+            // Inicializa a galeria
             initGallery();
+            
+            // Configurações restantes
             checkSidebarState();
             setupSmoothScrolling();
-            setupCardHoverEffects();
             
-            // Configura eventos de scroll
             window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink(); // Executa uma vez no carregamento
+            updateActiveLink();
             
-            // Configura evento de redimensionamento
-            window.addEventListener('resize', function() {
-                setupCardHoverEffects();
-            });
-            
-            // Verifica o hash na URL ao carregar a página
             if (window.location.hash) {
                 const targetElement = document.querySelector(window.location.hash);
                 if (targetElement) {
                     setTimeout(() => {
-                        targetElement.scrollIntoView();
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
                     }, 100);
                 }
             }
