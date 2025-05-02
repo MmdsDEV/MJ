@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Movimento Jovem - Uma iniciativa da igreja para engajar jovens em atividades espirituais e comunitárias">
+    <meta name="keywords" content="movimento jovem, igreja, jovens, atividades, espiritualidade">
+    <meta name="theme-color" content="#0a1f44">
     <title>Movimento Jovem</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://github.com/MmdsDEV/convite2/blob/main/mj.png?raw=true" as="image">
     <style>
         :root {
             --primary-blue: #0a1f44;
@@ -357,7 +361,7 @@
             border-radius: 2px;
         }
 
-        /* Gallery Styles - MODIFICADO PARA MOSTRAR IMAGENS COBERTAS (COVER) */
+        /* Gallery Styles */
         .gallery-container {
             width: 100%;
             padding: 1.5rem 0;
@@ -706,6 +710,30 @@
                 font-size: 1.2rem;
             }
         }
+
+        /* Acessibilidade */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Performance */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Preload critical CSS */
+        .critical-css {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -886,10 +914,11 @@
     
     <footer>
         <p>Movimento Jovem - Todos os direitos reservados</p>
+        <p><small>© <span id="current-year"></span> - Desenvolvido com ❤️ para a comunidade</small></p>
     </footer>
 
     <script>
-        // Configurações globais ATUALIZADAS
+        // Configurações globais
         const config = {
             logo: {
                 imageUrl: 'https://github.com/MmdsDEV/convite2/blob/main/mj.png?raw=true',
@@ -901,40 +930,45 @@
                     fallbackColor: '#0a1f44',
                     icon: 'fas fa-hands-helping',
                     title: 'Junte-se a Nós',
-                    subtitle: 'Faça parte do nosso movimento'
+                    subtitle: 'Faça parte do nosso movimento',
+                    alt: 'Jovens reunidos em atividade comunitária'
                 },
                 {
                     imageUrl: 'https://github.com/MmdsDEV/Noite/blob/main/img1.jpeg?raw=true',
                     fallbackColor: '#0a1f44',
                     icon: 'fas fa-pray',
                     title: 'Retiros Espirituais',
-                    subtitle: 'Encontros de fé e renovação'
+                    subtitle: 'Encontros de fé e renovação',
+                    alt: 'Grupo de jovens em momento de oração'
                 },
                 {
                     imageUrl: 'https://github.com/MmdsDEV/convite2/blob/main/igreja.png?raw=true',
                     fallbackColor: '#0a1f44',
                     icon: 'fas fa-users',
                     title: 'Comunidade',
-                    subtitle: 'Cresça junto conosco'
+                    subtitle: 'Cresça junto conosco',
+                    alt: 'Igreja onde ocorrem os encontros'
                 },
                 {
                     imageUrl: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
                     fallbackColor: '#0a1f44',
                     icon: 'fas fa-hands',
                     title: 'Ações Sociais',
-                    subtitle: 'Servir com amor'
+                    subtitle: 'Servir com amor',
+                    alt: 'Jovens realizando trabalho voluntário'
                 },
                 {
                     imageUrl: 'https://github.com/MmdsDEV/convite2/blob/main/download.jfif?raw=true',
                     fallbackColor: '#0a1f44',
                     icon: 'fas fa-calendar-alt',
                     title: 'Eventos',
-                    subtitle: 'Participe das nossas atividades'
+                    subtitle: 'Participe das nossas atividades',
+                    alt: 'Evento do Movimento Jovem'
                 }
             ]
         };
 
-        // Função MELHORADA para carregar imagens com fallback
+        // Função para carregar imagens com fallback
         function loadImageWithFallback(container, imageUrl, fallbackContent, isBackground = false) {
             if (!container) {
                 console.error('Container não encontrado');
@@ -953,7 +987,8 @@
                     container.innerHTML = '';
                     const imgElement = document.createElement('img');
                     imgElement.src = imageUrl;
-                    imgElement.alt = '';
+                    imgElement.alt = fallbackContent.alt || '';
+                    imgElement.loading = 'lazy';
                     imgElement.style.width = '100%';
                     imgElement.style.height = '100%';
                     imgElement.style.objectFit = 'cover';
@@ -1001,7 +1036,7 @@
             img.src = imageUrl;
         }
 
-        // Função ATUALIZADA para inicializar a galeria
+        // Função para inicializar a galeria
         function initGallery() {
             const gallery = document.getElementById('image-gallery');
             
@@ -1040,7 +1075,8 @@
                 if (contentDiv) {
                     loadImageWithFallback(contentDiv, item.imageUrl, {
                         color: item.fallbackColor,
-                        title: item.title
+                        title: item.title,
+                        alt: item.alt
                     }, true);
                 }
                 
@@ -1101,41 +1137,45 @@
         }
 
         // Sidebar Toggle Functionality - Desktop
-        const sidebarBtn = document.querySelector(".toggle-btn");
-        
-        if (sidebarBtn) {
-            sidebarBtn.addEventListener("click", () => {
-                document.body.classList.toggle("active");
-                localStorage.setItem('sidebarActive', document.body.classList.contains('active'));
-            });
+        function setupSidebarToggle() {
+            const sidebarBtn = document.querySelector(".toggle-btn");
+            
+            if (sidebarBtn) {
+                sidebarBtn.addEventListener("click", () => {
+                    document.body.classList.toggle("active");
+                    localStorage.setItem('sidebarActive', document.body.classList.contains('active'));
+                });
+            }
         }
 
         // Mobile Menu Functionality
-        const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-        const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
-        const mobileMenu = document.querySelector(".mobile-menu");
-        
-        if (mobileMenuBtn && mobileMenuOverlay && mobileMenu) {
-            mobileMenuBtn.addEventListener("click", () => {
-                mobileMenuOverlay.classList.add("active");
-                mobileMenu.classList.add("active");
-                document.body.style.overflow = "hidden";
-            });
+        function setupMobileMenu() {
+            const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+            const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+            const mobileMenu = document.querySelector(".mobile-menu");
             
-            mobileMenuOverlay.addEventListener("click", () => {
-                mobileMenuOverlay.classList.remove("active");
-                mobileMenu.classList.remove("active");
-                document.body.style.overflow = "";
-            });
-            
-            // Fechar menu ao clicar em um link
-            document.querySelectorAll(".mobile-menu .link").forEach(link => {
-                link.addEventListener("click", () => {
+            if (mobileMenuBtn && mobileMenuOverlay && mobileMenu) {
+                mobileMenuBtn.addEventListener("click", () => {
+                    mobileMenuOverlay.classList.add("active");
+                    mobileMenu.classList.add("active");
+                    document.body.style.overflow = "hidden";
+                });
+                
+                mobileMenuOverlay.addEventListener("click", () => {
                     mobileMenuOverlay.classList.remove("active");
                     mobileMenu.classList.remove("active");
                     document.body.style.overflow = "";
                 });
-            });
+                
+                // Fechar menu ao clicar em um link
+                document.querySelectorAll(".mobile-menu .link").forEach(link => {
+                    link.addEventListener("click", () => {
+                        mobileMenuOverlay.classList.remove("active");
+                        mobileMenu.classList.remove("active");
+                        document.body.style.overflow = "";
+                    });
+                });
+            }
         }
 
         // Verifica o estado salvo do sidebar
@@ -1148,7 +1188,7 @@
             }
         }
 
-        // Smooth Scrolling for Anchor Links - MODIFICADA para evitar scroll inicial
+        // Smooth Scrolling for Anchor Links
         function setupSmoothScrolling() {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
@@ -1180,49 +1220,56 @@
         }
 
         // Atualiza o link ativo baseado na posição do scroll
-        function updateActiveLink() {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.sidebar-links .link, .mobile-menu .link');
-            const scrollPosition = window.pageYOffset;
-            const headerHeight = window.innerWidth <= 768 ? 70 : 0;
-            
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - headerHeight - 20;
-                const sectionHeight = section.offsetHeight;
+        function setupActiveLinkUpdate() {
+            function updateActiveLink() {
+                const sections = document.querySelectorAll('section');
+                const navLinks = document.querySelectorAll('.sidebar-links .link, .mobile-menu .link');
+                const scrollPosition = window.pageYOffset;
+                const headerHeight = window.innerWidth <= 768 ? 70 : 0;
                 
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
-            });
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - headerHeight - 20;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
             
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
+            window.addEventListener('scroll', updateActiveLink);
+            updateActiveLink();
         }
 
-        // Inicialização MELHORADA
+        // Atualiza o ano no footer
+        function updateCurrentYear() {
+            const yearElement = document.getElementById('current-year');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        }
+
+        // Inicialização otimizada
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM carregado - Iniciando carregamento de imagens');
-            
-            // Carrega apenas a logo (removido o carregamento do avatar)
+            // Carrega a logo
             const logoContainer = document.getElementById('logo-container');
             const mobileLogoContainer = document.getElementById('mobile-logo-container');
             
             if (logoContainer) {
                 loadImageWithFallback(logoContainer, config.logo.imageUrl, config.logo);
-            } else {
-                console.error('Container do logo não encontrado');
             }
             
             if (mobileLogoContainer) {
                 loadImageWithFallback(mobileLogoContainer, config.logo.imageUrl, config.logo);
-            } else {
-                console.error('Container do mobile logo não encontrado');
             }
             
             // Inicializa a galeria
@@ -1230,14 +1277,34 @@
             
             // Configurações restantes
             checkSidebarState();
+            setupSidebarToggle();
+            setupMobileMenu();
             setupSmoothScrolling();
-            
-            window.addEventListener('scroll', updateActiveLink);
-            updateActiveLink();
+            setupActiveLinkUpdate();
+            updateCurrentYear();
             
             // Garante que a página comece no topo
             window.scrollTo(0, 0);
         });
+
+        // Otimização para carregamento de imagens fora da viewport
+        if ('IntersectionObserver' in window) {
+            const lazyImageObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const lazyImage = entry.target;
+                        if (lazyImage.dataset.src) {
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach((img) => {
+                lazyImageObserver.observe(img);
+            });
+        }
     </script>
 </body>
 </html>
